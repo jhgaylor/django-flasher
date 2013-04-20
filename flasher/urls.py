@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'flasher.views.home', name='home'),
+    url(r'^$', 'notecard.views.index', name='index'),
     # url(r'^flasher/', include('flasher.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
