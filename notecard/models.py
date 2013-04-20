@@ -3,7 +3,7 @@ from django.db import models
 class Notecard(models.Model):
     front = models.TextField()
     back = models.TextField()
-    name = models.CharField(max_length=100, required=True)
+    name = models.CharField(max_length=100)
     learned = models.BooleanField(default=False)
     times_reviewed = models.IntegerField(default=0)
     times_right = models.IntegerField(default=0)
