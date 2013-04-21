@@ -6,7 +6,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'notecard.views.index', name='index'),
+    url(r'^$', 'notecard.views.list_decks', name='index'),
+    url(r'^decks/$', 'notecard.views.list_decks', name='decks'),
+    url(r'^decks/(?P<deck_id>\d+)/$', 'notecard.views.list_cards_in_deck', name='deck_details'),
+    url(r'^cards/(?P<card_id>\d+)/$', 'notecard.views.notecard_details', name='card_details'),
+    url(r'^decks/new/$', 'notecard.views.create_deck', name='create_deck'),
+    url(r'^cards/new/(?P<deck_id>\d+)/$', 'notecard.views.create_card', name='create_card'),
     # url(r'^flasher/', include('flasher.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

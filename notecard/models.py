@@ -1,7 +1,8 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-class Notecard(models.Model):    
+class Notecard(models.Model):
     owner = models.ForeignKey(User)
     deck = models.ManyToManyField("Deck")
     front = models.TextField()
@@ -12,20 +13,23 @@ class Notecard(models.Model):
     times_right = models.IntegerField(default=0)
 
     def __unicode__(self):
-        return self.name 
-    # def Review(self):
-    #   self.times_reviewed += 1
-    #   self.save()
+        return self.name
 
-    # def mark_right(self):
-    #   self.times_right += 1
-    #   self.save()
+    def get_absolute_url(self):
+        return reverse('card_details',
+                       args=[self.id, ]
+                       )
 
-    #def get_absolute_url(self):
 
 class Deck(models.Model):
     owner = models.ForeignKey(User)
     name = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def __unicode__(self):
+        return self.name
 
+    def get_absolute_url(self):
+        return reverse('deck_details',
+                       args=[self.id, ]
+                       )

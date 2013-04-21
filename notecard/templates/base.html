@@ -4,10 +4,11 @@
     <title>Notecard app!</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-responsive.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <style>
-        body { padding-top:40px;}
-        .row div{ background-color:#eee;}
+        body { padding-top: 40px;}
+        
     </style>
     {% block extra_head %}
 
@@ -27,15 +28,18 @@
           <a class="brand" href="/">Notecards</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active">
-                <a href="/">Home</a>
-              </li>
-              <li class="">
-                {% if user.is_authenticated %}
+              {% if user.is_authenticated %}
+                <li class="">
+                    <a href="/decks/">Decks</a>
+                </li>
+                <li class="">
                     <a href="/accounts/logout/">Logout</a>
-                {% else %} 
+                </li>
+              {% else %}
+                <li class="">
                     <a href="/accounts/login/">Login</a>
-                {% endif %}
+                </li>
+              {% endif %}
               </li>
             </ul>
           </div>
@@ -47,17 +51,13 @@
     <div class="container">
         <div class="row">
             <div class="span12">
-                <h1>Welcome!</h1>
+                <!-- <h1>Welcome!</h1> -->
             </div>
         </div>
         <div class="row">
-            <div class="span3">
-                {% block sidebar %}
+            
 
-                {% endblock %}
-            </div>
-
-            <div class="span9">
+            <div class="span8 offset2">
                 {% block content %}
 
                 {% endblock %}

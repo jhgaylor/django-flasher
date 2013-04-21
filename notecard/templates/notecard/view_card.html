@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+<ul>
+    <li>Make a deck</li>
+    <li>List decks</li>
+    <li>Make a card</li>
+</ul>
+{% endblock %}
+
+
+{% block content %}
+
+<h1><a href="{{card.get_absolute_url}}">{{card}}</a></h1>
+
+{% endblock %}

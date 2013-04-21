@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+
+{% block content %}
+<h1>Decks</h1>
+<a href="#newDeck" role="button" class="btn btn-success" data-toggle="modal">New</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th># cards</th>
+            <th>Created</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for deck in decks %}
+        <tr>
+            <td><a href="{{deck.get_absolute_url}}">{{deck}}</a></td>
+            <td>{{deck.notecard_set.all|length}}</td>
+            <td>{{deck.date_created}}</td>
+            <td>
+                <button class="btn btn-primary" >Share</button>
+                <button class="btn btn-info" ><i class="icon-align-justify"></i></button>
+                <button class="btn btn-danger"><i class="icon-trash"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div id="newDeck" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newDeckLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="newDeckLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" method="POST" action="{% url 'create_deck' %}">
+        {% csrf_token %}
+      <div class="control-group">
+        <label class="control-label" for="inputEmail">Name</label>
+        <div class="controls">
+          <input type="text" id="name" name="name" placeholder="Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn">Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+
+{% endblock %}
