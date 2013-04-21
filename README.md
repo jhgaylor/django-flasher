@@ -1,5 +1,5 @@
 # Models:
-khklljf
+
 ## Notecard
 * front (text)
 * back (text)
