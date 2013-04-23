@@ -60,7 +60,6 @@ def notecard_details(request, card_id):
 def create_card(request, deck_id):
     deck_object = Deck.objects.get(pk=deck_id)
     if request.POST:
-        #this was a form submission
         card = Notecard()
         card.name = request.POST['name']
         card.owner = request.user
@@ -79,8 +78,55 @@ def create_deck(request):
         deck.name = request.POST['name']
         deck.save()
     return redirect(reverse('decks'))
-    # else:
-    #     #we need to render the template w/ the form on it
-    #     return render_to_response('notecard/new_deck.html',
-    #                               context_instance=RequestContext(request)
-    #                               )
+
+@login_required    
+def delete_card(request,card_id):
+    card = Notecard.objects.get(pk=request.POST['card_id']).delete()
+    return render_to_response("notecard/list_decks",
+                        context_instance=RequestContext(request)
+                        )
+@login_required
+def edit_deck(request):
+    deck = Deck.objects.get(pk=request.POST['deck_id'])        
+    deck.name = request.POST['name']
+    deck.save()
+    return redirect(reverse('decks'))
+
+
+
+@login_required
+def delete_deck(request,deck_id):
+    deck = Deck.objects.get(pk=request.POST['deck_id']).delete()
+    return render_to_response("notecard/list_decks",
+                        context_instance=RequestContext(request)
+                        )
+@login_required
+def modify_card(request):
+    """
+    This code retreives cards infromation then updates the card
+    """
+    card = Notecard.objects.get(pk=request.POST['card_id'])
+    if "name" in request POST:
+        card.name = request.POST['name']
+    if "front" in request POST:
+        card.name = request.POST['front']
+    if "back" in request POST:
+        card.name = request.POST['back']
+    if "deck" in request POST:
+        deck_ids = request.POST['deck'].split(",")
+        for _id in deck_ids:
+            card.decks.add(Deck.objects.get(pk=_id)
+    card.save()
+    return render_to_response("notecard/deck_list",
+                            context_instance=RequestContext(request)
+                            )
+    
+
+
+
+    
+
+
+
+
+
